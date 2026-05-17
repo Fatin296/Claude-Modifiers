@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Modifiers </title>
+<title>Claude Modifiers — The Complete Codex</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -821,7 +821,8 @@ function initFilters() {
   catOrder.forEach(cat => {
     const count = MODIFIERS.filter(m => m.cat === cat).length;
     const info = CATS[cat];
-    html += `<button class="filter-btn" data-cat="${cat}"><span>${info.icon} ${cat}</span><span class="count-badge">(${count})</span></button>`;
+    const displayCat = cat === 'Code' ? 'Code/SEO' : cat;
+    html += `<button class="filter-btn" data-cat="${cat}"><span>${info.icon} ${displayCat}</span><span class="count-badge">(${count})</span></button>`;
   });
   
   container.innerHTML = html;
@@ -877,6 +878,7 @@ function render() {
   content.innerHTML = orderedGroups.map(cat => {
     const ms = groups[cat];
     const info = CATS[cat];
+    const displayCat = cat === 'Code' ? 'Code/SEO' : cat;
     const cards = ms.map(m => {
       const typeClass = m.type === "slash" ? "slash-pill" : "upper-pill";
       const plClass = m.place === "before" ? "pl-before" : m.place === "after" ? "pl-after" : "pl-both";
@@ -908,7 +910,7 @@ function render() {
     return `<div class="cat-group reveal">
       <div class="cat-header">
         <div class="cat-icon" style="background:rgba(var(${info.rgbVar}), 0.15); color:${info.hexVar}">${info.icon}</div>
-        <div class="cat-name" style="color:${info.hexVar}">${cat.toUpperCase()}</div>
+        <div class="cat-name" style="color:${info.hexVar}">${displayCat.toUpperCase()}</div>
         <div class="cat-count">${ms.length} modifiers</div>
       </div>
       <div class="cards">${cards}</div>
