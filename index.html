@@ -4,24 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claude Modifiers </title>
-<!-- Added the emoji favicon using an inline SVG -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✳️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
+  /* Core Theme */
   --bg:#060810;
   --surface:#0c0f1a;
   --surface2:#111629;
   --border:#1e2540;
   --border2:#2a3460;
-  --accent:#7c6dfa;
-  --accent2:#fa6d8f;
-  --accent3:#6dfacc;
+  
+  /* Text */
   --text:#e8ecff;
-  --muted:#5a6490;
-  --muted2:#8892c0;
+  --muted:#8892c0; /* Primary Secondary Text */
+  --muted2:#5a6490; /* Darker Secondary */
+  
+  /* Hex Accents */
+  --accent:#7c6dfa;   /* Purple */
+  --accent2:#fa6d8f;  /* Pink */
+  --accent3:#6dfacc;  /* Teal */
+  --accent4:#fac86d;  /* Amber */
+  --accent5:#6db5fa;  /* Blue */
+
+  /* RGB Components (For dynamic opacities) */
+  --rgb-accent: 124, 109, 250;
+  --rgb-accent2: 250, 109, 143;
+  --rgb-accent3: 109, 250, 204;
+  --rgb-accent4: 250, 200, 109;
+  --rgb-accent5: 109, 181, 250;
+  
+  /* Typography */
   --mono:'Space Mono',monospace;
   --sans:'Syne',sans-serif;
   --glow:0 0 40px rgba(124,109,250,0.15);
@@ -34,26 +48,46 @@ body.light{
   --surface2:#e8eaf8;
   --border:#d0d4f0;
   --border2:#b0b8e8;
+  
+  --text:#0d1030;
+  --muted:#4f5780; /* Darkened for readability */
+  --muted2:#3b436b; 
+
+  /* Accessible Hex Accents for Light bg */
   --accent:#5a4fe0;
   --accent2:#d94070;
-  --accent3:#0fb87a;
-  --text:#0d1030;
-  --muted:#8890b8;
-  --muted2:#555e90;
+  --accent3:#0b8a5c; /* Darkened Teal */
+  --accent4:#c26a00; /* Darkened Amber */
+  --accent5:#2a7ac4; /* Darkened Blue */
+
+  /* Accessible RGB Components */
+  --rgb-accent: 90, 79, 224;
+  --rgb-accent2: 217, 64, 112;
+  --rgb-accent3: 11, 138, 92;
+  --rgb-accent4: 194, 106, 0;
+  --rgb-accent5: 42, 122, 196;
+  
   --glow:0 0 40px rgba(90,79,224,0.12);
 }
+
+/* Accessibility Focus States */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 body.light .bg-grid{
   background-image:
-    linear-gradient(rgba(90,79,224,0.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(90,79,224,0.05) 1px,transparent 1px);
+    linear-gradient(rgba(var(--rgb-accent),0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--rgb-accent),0.05) 1px,transparent 1px);
 }
-body.light .orb1{background:rgba(90,79,224,0.06)}
-body.light .orb2{background:rgba(217,64,112,0.05)}
-body.light .orb3{background:rgba(15,184,122,0.04)}
+body.light .orb1{background:rgba(var(--rgb-accent),0.06)}
+body.light .orb2{background:rgba(var(--rgb-accent2),0.05)}
+body.light .orb3{background:rgba(var(--rgb-accent3),0.04)}
 body.light .controls{background:rgba(240,242,255,0.92)}
 body.light #search{background:var(--surface)}
 body.light .card-ex{background:var(--surface2)}
-body.light mark{background:rgba(90,79,224,0.18);color:var(--text)}
+body.light mark{background:rgba(var(--rgb-accent),0.18);color:var(--text)}
 
 html{scroll-behavior:smooth}
 body{
@@ -61,7 +95,7 @@ body{
   color:var(--text);
   font-family:var(--sans);
   overflow-x:hidden;
-  cursor:none;
+  cursor:none; /* Custom cursor */
   transition:background 0.3s,color 0.3s;
 }
 
@@ -72,6 +106,7 @@ body{
   padding:0 32px;height:56px;
   background:rgba(6,8,16,0.7);
   backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
   transition:background 0.3s,border-color 0.3s;
 }
@@ -87,18 +122,16 @@ body.light .top-nav{background:rgba(240,242,255,0.8)}
   background:linear-gradient(135deg,var(--accent),var(--accent3));
   animation:pulse 2s ease infinite;
 }
-.nav-links{
-  display:flex;align-items:center;gap:4px;
-}
+.nav-links{display:flex;align-items:center;gap:4px;}
 .nav-link{
   font-family:var(--mono);font-size:11px;
-  color:var(--muted2);letter-spacing:0.05em;
+  color:var(--muted);letter-spacing:0.05em;
   padding:6px 14px;border-radius:6px;
   background:none;border:none;cursor:none;
   text-decoration:none;
   transition:color 0.2s,background 0.2s;
 }
-.nav-link:hover{color:var(--text);background:rgba(124,109,250,0.08)}
+.nav-link:hover{color:var(--text);background:rgba(var(--rgb-accent),0.08)}
 .nav-link.active{color:var(--accent)}
 .nav-right{display:flex;align-items:center;gap:12px}
 
@@ -126,11 +159,10 @@ body.light .toggle-track{background:var(--accent)}
 body.light .toggle-thumb{transform:translateX(14px)}
 .toggle-label{
   font-family:var(--mono);font-size:10px;
-  color:var(--muted2);letter-spacing:0.06em;
+  color:var(--muted);letter-spacing:0.06em;
   user-select:none;
 }
 
-/* NEW BADGE */
 .nav-new{
   font-family:var(--mono);font-size:9px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -149,48 +181,42 @@ body.light .toggle-thumb{transform:translateX(14px)}
 }
 #cursor-ring{
   position:fixed;width:36px;height:36px;
-  border:1px solid rgba(124,109,250,0.5);
+  border:1px solid rgba(var(--rgb-accent),0.5);
   border-radius:50%;pointer-events:none;
   z-index:9998;transform:translate(-50%,-50%);
   transition:all 0.12s ease;
 }
 body:hover #cursor{opacity:1}
 
-/* ANIMATED BG GRID */
+/* ANIMATED BG GRID & ORBS */
 .bg-grid{
   position:fixed;inset:0;z-index:0;
   background-image:
-    linear-gradient(rgba(124,109,250,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(124,109,250,0.04) 1px,transparent 1px);
+    linear-gradient(rgba(var(--rgb-accent),0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--rgb-accent),0.04) 1px,transparent 1px);
   background-size:48px 48px;
   animation:gridDrift 30s linear infinite;
 }
-@keyframes gridDrift{
-  0%{background-position:0 0}
-  100%{background-position:48px 48px}
-}
+@keyframes gridDrift{0%{background-position:0 0}100%{background-position:48px 48px}}
 
 .bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .orb{
   position:absolute;border-radius:50%;filter:blur(80px);
   animation:orbFloat 20s ease-in-out infinite;
 }
-.orb1{width:400px;height:400px;background:rgba(124,109,250,0.08);top:-10%;left:-5%;animation-delay:0s}
-.orb2{width:300px;height:300px;background:rgba(250,109,143,0.06);top:40%;right:-5%;animation-delay:-7s}
-.orb3{width:350px;height:350px;background:rgba(109,250,204,0.05);bottom:-10%;left:30%;animation-delay:-14s}
+.orb1{width:400px;height:400px;background:rgba(var(--rgb-accent),0.08);top:-10%;left:-5%;animation-delay:0s}
+.orb2{width:300px;height:300px;background:rgba(var(--rgb-accent2),0.06);top:40%;right:-5%;animation-delay:-7s}
+.orb3{width:350px;height:350px;background:rgba(var(--rgb-accent3),0.05);bottom:-10%;left:30%;animation-delay:-14s}
 @keyframes orbFloat{
   0%,100%{transform:translate(0,0) scale(1)}
   33%{transform:translate(30px,-20px) scale(1.05)}
   66%{transform:translate(-20px,30px) scale(0.95)}
 }
-
-/* SCANLINE OVERLAY */
 .scanlines{
   position:fixed;inset:0;z-index:1;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
 }
 
-/* LAYOUT */
 .wrap{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* HERO */
@@ -199,11 +225,10 @@ header{
   justify-content:center;align-items:center;
   text-align:center;position:relative;padding:120px 24px 80px;
 }
-
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
   border:1px solid var(--border2);
-  background:rgba(124,109,250,0.08);
+  background:rgba(var(--rgb-accent),0.08);
   padding:6px 16px;border-radius:100px;
   font-family:var(--mono);font-size:11px;
   color:var(--accent);letter-spacing:0.1em;
@@ -228,21 +253,30 @@ h1{
   animation:gradShift 6s ease infinite;
   background-size:200% 200%;
 }
-@keyframes gradShift{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 .hero-sub{
   font-family:var(--mono);font-size:13px;
-  color:var(--muted2);max-width:480px;
-  line-height:1.8;margin:24px auto 48px;
+  color:var(--muted);max-width:480px;
+  line-height:1.8;margin:24px auto 32px;
   animation:fadeUp 0.8s 0.3s ease both;
+}
+
+.xray-hint {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 8px 16px; border-radius: 8px;
+  font-family: var(--mono); font-size: 11px; color: var(--accent3);
+  margin-bottom: 48px; animation: fadeUp 0.8s 0.4s ease both;
+}
+.xray-hint kbd {
+  background: var(--surface); border: 1px solid var(--border2);
+  padding: 2px 6px; border-radius: 4px; color: var(--text); font-weight: 700;
 }
 
 .hero-stats{
   display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp 0.8s 0.45s ease both;margin-bottom:56px;
+  animation:fadeUp 0.8s 0.5s ease both;margin-bottom:56px;
 }
 .stat{text-align:center}
 .stat-num{
@@ -251,56 +285,32 @@ h1{
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   line-height:1;
 }
-.stat-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;margin-top:4px}
+.stat-label{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:0.1em;margin-top:4px}
 
-/* MOUSE SCROLL ANIMATION */
 .scroll-hint{
   position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:12px;
   animation:fadeIn 1s 1s ease both;
 }
 .mouse-icon {
-  width: 24px;
-  height: 38px;
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  opacity: 0.8;
+  width: 22px; height: 34px; border: 2px solid var(--muted2); border-radius: 12px; position: relative; opacity: 0.7;
 }
-.wheel {
-  width: 4px;
-  height: 8px;
-  background: var(--accent3);
-  border-radius: 2px;
-  margin-top: 6px;
-  animation: scrollWheel 1.5s ease-in-out infinite;
+.scroll-wheel {
+  width: 4px; height: 6px; background: var(--accent); border-radius: 2px; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); 
+  animation: scrollDown 1.5s infinite cubic-bezier(0.15, 0.41, 0.69, 0.94);
 }
-@keyframes scrollWheel {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(14px); opacity: 0; }
-}
-.scroll-text{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.15em}
+@keyframes scrollDown { 0% { top: 6px; opacity: 1; } 100% { top: 18px; opacity: 0; } }
+.scroll-text{font-family:var(--mono);font-size:9px;color:var(--muted2);letter-spacing:0.15em}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* SECTION */
-.section{padding:80px 0}
-.section-label{
-  font-family:var(--mono);font-size:10px;
-  color:var(--accent);letter-spacing:0.15em;
-  margin-bottom:12px;
-  display:flex;align-items:center;gap:10px;
-}
-.section-label::before{content:'';flex:0 0 24px;height:1px;background:var(--accent)}
-
-/* SEARCH + FILTER BAR */
+/* CONTROLS */
 .controls{
   position:sticky;top:0;z-index:100;
   background:rgba(6,8,16,0.9);
   backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:16px 0;
 }
@@ -316,24 +326,31 @@ h1{
   position:absolute;left:14px;top:50%;transform:translateY(-50%);
   color:var(--muted);pointer-events:none;
 }
+.search-shortcut {
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:9px;
+  background:var(--surface2);border:1px solid var(--border);
+  padding:2px 6px;border-radius:4px;color:var(--muted);pointer-events:none;
+}
 #search{
   width:100%;background:var(--surface);
   border:1px solid var(--border);
-  border-radius:8px;padding:10px 14px 10px 40px;
+  border-radius:8px;padding:10px 48px 10px 40px;
   color:var(--text);font-family:var(--mono);font-size:13px;
   outline:none;transition:border 0.2s,box-shadow 0.2s;
 }
-#search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,109,250,0.15)}
+#search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--rgb-accent),0.15)}
 #search::placeholder{color:var(--muted)}
 
-.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters{display:flex;gap:8px;flex-wrap:wrap;}
 .filter-btn{
   font-family:var(--mono);font-size:11px;
   padding:7px 14px;border-radius:6px;
   border:1px solid var(--border);
-  background:transparent;color:var(--muted2);
+  background:transparent;color:var(--muted);
   cursor:none;transition:all 0.2s;letter-spacing:0.04em;
   position:relative;overflow:hidden;
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
 }
 .filter-btn::before{
   content:'';position:absolute;inset:0;
@@ -341,11 +358,11 @@ h1{
   opacity:0;transition:opacity 0.2s;
 }
 .filter-btn span{position:relative;z-index:1}
+.filter-btn .count-badge { font-size: 9px; opacity: 0.8; position:relative; z-index:1; }
 .filter-btn:hover{border-color:var(--accent);color:var(--text)}
-.filter-btn.active{
-  border-color:transparent;color:#fff;
-}
+.filter-btn.active{border-color:transparent;color:#fff;}
 .filter-btn.active::before{opacity:1}
+.filter-btn.active .count-badge { color: rgba(255,255,255,0.8); }
 
 .result-count{
   margin-left:auto;font-family:var(--mono);font-size:11px;
@@ -354,9 +371,8 @@ h1{
 .result-count span{color:var(--accent);font-weight:700}
 
 /* TABLE AREA */
-.table-section{padding:40px 0 80px}
+.table-section{padding:40px 0 80px; transition: padding-bottom 0.3s;}
 
-/* CATEGORY GROUPS */
 .cat-group{margin-bottom:48px;opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s}
 .cat-group.visible{opacity:1;transform:translateY(0)}
 
@@ -374,113 +390,159 @@ h1{
 .cat-count{
   font-family:var(--mono);font-size:11px;
   padding:3px 10px;border-radius:100px;
-  background:var(--surface2);color:var(--muted2);
+  background:var(--surface2);color:var(--muted);
   margin-left:auto;
 }
 
-/* CARD GRID */
+/* CARDS */
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:12px;
+  perspective: 1000px; 
 }
-
-/* MODIFIER CARD */
 .card{
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:12px;padding:18px 20px;
-  transition:all 0.25s;
+  transition: border-color 0.25s, box-shadow 0.25s; 
   position:relative;overflow:hidden;
   cursor:none;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
+.card > * { pointer-events: none; }
 .card::before{
   content:'';position:absolute;inset:0;
   opacity:0;transition:opacity 0.3s;
   border-radius:12px;
 }
-.card:hover{
-  border-color:var(--accent);
-  transform:translateY(-2px);
-  box-shadow:var(--glow);
-}
+.card:hover{ border-color:var(--accent); box-shadow:var(--glow); z-index: 10; }
 .card:hover::before{opacity:1}
 
-.card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px; position:relative;}
 
 .code-pill{
   font-family:var(--mono);font-size:13px;font-weight:700;
   padding:4px 12px;border-radius:6px;
   letter-spacing:0.03em;flex-shrink:0;
 }
-.slash-pill{background:rgba(250,109,143,0.15);color:var(--accent2);border:1px solid rgba(250,109,143,0.3)}
-.upper-pill{background:rgba(109,250,204,0.12);color:var(--accent3);border:1px solid rgba(109,250,204,0.25)}
+.slash-pill{background:rgba(var(--rgb-accent2),0.15);color:var(--accent2);border:1px solid rgba(var(--rgb-accent2),0.3)}
+.upper-pill{background:rgba(var(--rgb-accent3),0.12);color:var(--accent3);border:1px solid rgba(var(--rgb-accent3),0.25)}
 
 .placement{
   font-family:var(--mono);font-size:10px;
   padding:3px 8px;border-radius:4px;letter-spacing:0.06em;
 }
-.pl-before{background:rgba(124,109,250,0.15);color:var(--accent)}
-.pl-after{background:rgba(250,200,109,0.12);color:#fac86d}
-.pl-both{background:rgba(109,250,204,0.12);color:var(--accent3)}
+.pl-before{background:rgba(var(--rgb-accent),0.15);color:var(--accent)}
+.pl-after{background:rgba(var(--rgb-accent4),0.15);color:var(--accent4)}
+.pl-both{background:rgba(var(--rgb-accent3),0.12);color:var(--accent3)}
 
-.card-name{font-size:15px;font-weight:700;color:var(--text);margin-left:auto}
-
-.card-what{
-  font-size:13px;color:var(--muted2);
-  line-height:1.6;margin-bottom:14px;
+.card-name{
+  font-size:11px;color:var(--muted);font-family:var(--mono);
+  text-transform:uppercase; margin-left:auto; white-space:nowrap;
 }
 
+.add-stack-btn {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 16px; cursor: none; pointer-events: auto;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.add-stack-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.card-what{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+
+/* X-RAY DIFF UI */
 .card-ex{
-  background:var(--bg);
-  border:1px solid var(--border);
+  background:var(--bg); border:1px solid var(--border);
   border-radius:8px;padding:10px 14px;
   font-family:var(--mono);font-size:11px;
   color:var(--accent3);line-height:1.6;
-  margin-bottom:12px;position:relative;
-  overflow:hidden;
+  margin-bottom:12px;position:relative; overflow:hidden;
 }
 .card-ex::before{
   content:'›';position:absolute;left:0;top:0;bottom:0;
   width:3px;background:linear-gradient(to bottom,var(--accent),var(--accent3));
   display:flex;align-items:center;justify-content:center;
 }
-.card-ex-inner{padding-left:4px}
+.card-ex-inner{padding-left:4px; transition: opacity 0.2s;}
 
-.card-use{
-  font-size:11px;color:var(--muted);
-  display:flex;align-items:flex-start;gap:6px;
-  font-family:var(--mono);
-}
+.xray-view { display: none; padding-left: 4px; flex-direction: column; gap: 6px; }
+body.xray-active .card-ex-inner { display: none; }
+body.xray-active .card-ex { background: rgba(var(--rgb-accent),0.05); border-color: rgba(var(--rgb-accent),0.2); }
+body.xray-active .xray-view { display: flex; }
+.xray-before { color: var(--muted2); text-decoration: line-through; opacity: 0.7; }
+.xray-after { color: var(--accent3); }
+
+.card-use{font-size:11px;color:var(--muted2);display:flex;align-items:flex-start;gap:6px;font-family:var(--mono);}
 .use-label{color:var(--accent);flex-shrink:0}
 
-/* HIGHLIGHT */
-mark{background:rgba(124,109,250,0.3);color:var(--text);border-radius:2px;padding:0 2px}
+/* ALCHEMY DOCK (Always Dark Mode for "Pro" feel) */
+.alchemy-dock {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(12,15,26,0.98); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid #7c6dfa; padding: 16px 24px;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column; gap: 12px;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(124,109,250,0.3);
+  color: #e8ecff; /* Force text color */
+}
+.alchemy-dock.active { transform: translateY(0); }
 
-/* EMPTY */
+.dock-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: #7c6dfa; letter-spacing: 0.1em;
+}
+.close-dock {
+  background: none; border: none; color: #8892c0; cursor: none; font-size: 16px; padding: 4px;
+}
+.close-dock:hover { color: #fa6d8f; }
+
+.dock-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.dock-tag {
+  background: rgba(124,109,250,0.15); border: 1px solid #7c6dfa;
+  color: #e8ecff; padding: 4px 10px; border-radius: 6px;
+  font-family: var(--mono); font-size: 11px; display: flex; align-items: center; gap: 6px;
+}
+.dock-tag button { background: none; border: none; color: #fa6d8f; font-size: 12px; cursor: none; }
+
+.dock-input-row { display: flex; gap: 12px; }
+.dock-input {
+  flex: 1; background: #0c0f1a; border: 1px solid #2a3460;
+  color: #e8ecff; padding: 12px 16px; border-radius: 8px;
+  font-family: var(--sans); font-size: 14px; outline: none;
+}
+.dock-input:focus { border-color: #7c6dfa; }
+.dock-input::placeholder { color: #5a6490; }
+
+.dock-copy-btn {
+  background: linear-gradient(135deg, #7c6dfa, #6dfacc);
+  color: #000; border: none; padding: 0 24px; border-radius: 8px;
+  font-family: var(--mono); font-weight: 700; font-size: 12px; cursor: none;
+  white-space: nowrap;
+}
+
 #empty{
   display:none;text-align:center;padding:80px 24px;
   color:var(--muted);font-family:var(--mono);
 }
 #empty .empty-icon{font-size:48px;margin-bottom:16px;opacity:0.3}
-#empty p{font-size:13px;line-height:1.8}
 
-/* FOOTER */
 footer{
   border-top:1px solid var(--border);
   padding:40px 24px;text-align:center;
   font-family:var(--mono);font-size:11px;color:var(--muted);
-  position:relative;z-index:2;
+  position:relative;z-index:2; 
 }
 footer a{color:var(--accent);text-decoration:none}
 
-/* FLOATING PARTICLES */
 .particles{position:fixed;inset:0;z-index:0;pointer-events:none}
 .particle{
   position:absolute;width:2px;height:2px;
   background:var(--accent);border-radius:50%;
-  animation:particleFall linear infinite;
-  opacity:0;
+  animation:particleFall linear infinite; opacity:0;
 }
 @keyframes particleFall{
   0%{opacity:0;transform:translateY(-10px)}
@@ -489,24 +551,12 @@ footer a{color:var(--accent);text-decoration:none}
   100%{opacity:0;transform:translateY(100vh)}
 }
 
-/* TOOLTIP */
-.tooltip{
-  position:fixed;z-index:9997;
-  background:var(--surface2);border:1px solid var(--border2);
-  border-radius:8px;padding:8px 12px;
-  font-family:var(--mono);font-size:11px;color:var(--text);
-  pointer-events:none;opacity:0;transition:opacity 0.2s;
-  max-width:200px;line-height:1.5;
-}
-
-/* TOP PROGRESS BAR */
 #progress{
   position:fixed;top:0;left:0;height:2px;z-index:9999;
   background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
   transition:width 0.1s;
 }
 
-/* COPY FLASH */
 .copy-flash{
   position:fixed;top:24px;right:24px;z-index:9999;
   background:var(--accent);color:#fff;
@@ -517,9 +567,32 @@ footer a{color:var(--accent);text-decoration:none}
 }
 .copy-flash.show{opacity:1;transform:translateY(0)}
 
+/* PLAYBOOK OVERLAY STYLES */
+.playbook-overlay {
+  position: fixed; inset: 0; z-index: 999999;
+  background: var(--bg); display: none; flex-direction: column;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.playbook-overlay.active { display: flex; opacity: 1; }
+.playbook-header {
+  height: 56px; background: rgba(6,8,16,0.95); border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; padding: 0 32px;
+  font-family: var(--mono); font-size: 11px; flex-shrink: 0;
+}
+body.light .playbook-header { background: rgba(240,242,255,0.95); }
+.playbook-title { color: var(--accent); letter-spacing: 0.1em; font-weight: bold; }
+.playbook-close {
+  background: rgba(var(--rgb-accent2), 0.15); border: 1px solid rgba(var(--rgb-accent2), 0.3);
+  color: var(--accent2); padding: 8px 16px; border-radius: 6px; cursor: none; transition: all 0.2s;
+  font-family: var(--mono); font-weight: bold; font-size: 11px;
+}
+.playbook-close:hover { background: var(--accent2); color: #fff; }
+.playbook-frame { flex: 1; width: 100%; border: none; background: #060810; }
+
+.mobile-only { display: none; }
+
 /* RESPONSIVE */
 @media(max-width:768px){
-  .cards{grid-template-columns:1fr}
   .hero-stats{gap:20px}
   .stat-num{font-size:2rem}
   h1{font-size:clamp(2.5rem,10vw,4rem)}
@@ -529,19 +602,38 @@ footer a{color:var(--accent);text-decoration:none}
   #cursor,#cursor-ring{display:none}
   .nav-links{display:none}
   .top-nav{padding:0 16px}
+  .search-shortcut{display:none;}
+  .card{transform: none !important;} 
+  .mobile-only { display: block; margin-right: 8px; }
+  .playbook-header { padding: 0 16px; }
 }
 @media(max-width:480px){
-  .filters{gap:6px}
-  .filter-btn{padding:6px 10px;font-size:10px}
+  /* Swipeable Horizontal Filters on Mobile */
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px; /* space for potential scrollbar */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; 
+    margin: 0 -16px; /* Bleed edge slightly */
+    padding: 4px 16px 8px;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .dock-input-row { flex-direction: column; }
+  .dock-copy-btn { padding: 12px; }
 }
 
-/* INTRO ANIMATION */
+/* Disable X-Ray Hint on touch devices */
+@media (pointer: coarse) {
+  .xray-hint { display: none; }
+}
+
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
 .reveal.in{opacity:1;transform:translateY(0)}
 </style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✳️</text></svg>">
 </head>
 <body>
-
 <div id="progress"></div>
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -555,7 +647,6 @@ footer a{color:var(--accent);text-decoration:none}
 <div class="particles" id="particles"></div>
 <div class="copy-flash" id="copyFlash">Copied to clipboard ✓</div>
 
-<!-- TOP NAV -->
 <nav class="top-nav">
   <a class="nav-brand" href="#">
     <span class="nav-brand-dot"></span>
@@ -567,8 +658,10 @@ footer a{color:var(--accent);text-decoration:none}
     <a class="nav-link" href="#" onclick="setFilter('Code');return false;">Code/SEO <span class="nav-new">+8</span></a>
     <a class="nav-link" href="#" onclick="setFilter('Reasoning');return false;">Reasoning</a>
     <a class="nav-link" href="#" onclick="setFilter('Creation');return false;">Creation</a>
+    <a class="nav-link" href="#" id="howToUseBtn" style="color: var(--accent3); font-weight: 700;">How to Use <span class="nav-new" style="background:var(--accent3); color:#000;">PLAYBOOK</span></a>
   </div>
   <div class="nav-right">
+    <a class="nav-link mobile-only" href="#" id="howToUseBtnMobile" style="color: var(--accent3); font-weight: 700;">How to Use</a>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
       <span class="toggle-label" id="themeLabel">DARK</span>
@@ -576,7 +669,6 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </nav>
 
-<!-- HERO -->
 <header>
   <div class="hero-badge"><span class="dot"></span> INTERACTIVE REFERENCE v2.0</div>
   <h1>
@@ -585,6 +677,11 @@ footer a{color:var(--accent);text-decoration:none}
     <span class="h1-line1">Codex</span>
   </h1>
   <p class="hero-sub">Every prompt modifier, slash command &amp; keyword formula — tested, categorized, and ready to copy. The complete cheat sheet for power users.</p>
+  
+  <div class="xray-hint" aria-hidden="true">
+    Hold <kbd>ALT</kbd> (or Option) to X-Ray modifiers and view simulated outputs
+  </div>
+
   <div class="hero-stats">
     <div class="stat"><div class="stat-num" data-target="43">0</div><div class="stat-label">MODIFIERS</div></div>
     <div class="stat"><div class="stat-num" data-target="5">0</div><div class="stat-label">CATEGORIES</div></div>
@@ -593,38 +690,32 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
   <div class="scroll-hint">
     <div class="mouse-icon">
-      <div class="wheel"></div>
+        <div class="scroll-wheel"></div>
     </div>
     <div class="scroll-text">SCROLL TO EXPLORE</div>
   </div>
 </header>
 
-<!-- CONTROLS -->
 <div class="controls">
   <div class="controls-inner">
     <div class="search-wrap">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="search" placeholder="Search modifiers, use cases..." autocomplete="off" spellcheck="false">
+      <input type="text" id="search" placeholder="Search modifiers, use cases, or problems..." autocomplete="off" spellcheck="false" aria-label="Search modifiers">
+      <span class="search-shortcut">/</span>
     </div>
-    <div class="filters">
-      <button class="filter-btn active" data-cat="all"><span>All</span></button>
-      <button class="filter-btn" data-cat="Writing"><span>✍ Writing</span></button>
-      <button class="filter-btn" data-cat="Reasoning"><span>🧠 Reasoning</span></button>
-      <button class="filter-btn" data-cat="Creation"><span>🏗 Creation</span></button>
-      <button class="filter-btn" data-cat="Analysis"><span>🔍 Analysis</span></button>
-      <button class="filter-btn" data-cat="Code"><span>⌨ Code/SEO</span></button>
+    <div class="filters" id="filterContainer">
+      <!-- Generated by JS -->
     </div>
     <div class="result-count"><span id="rcount">43</span> results</div>
   </div>
 </div>
 
-<!-- TABLE SECTION -->
-<div class="table-section">
+<div class="table-section" id="tableSection">
   <div class="wrap">
     <div id="content"></div>
     <div id="empty">
       <div class="empty-icon">⌀</div>
-      <p>No modifiers match your search.<br>Try a different keyword or clear the filter.</p>
+      <p>No modifiers match your intent.<br>Try describing your problem differently.</p>
     </div>
   </div>
 </div>
@@ -636,63 +727,114 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </footer>
 
+<div class="alchemy-dock" id="alchemyDock" aria-label="Prompt Composer Dock">
+  <div class="dock-header">
+    <span>✦ PROMPT ALCHEMY DOCK</span>
+    <button class="close-dock" id="closeDock" aria-label="Close Dock">×</button>
+  </div>
+  <div class="dock-tags" id="dockTags"></div>
+  <div class="dock-input-row">
+    <input type="text" class="dock-input" id="dockInput" placeholder="Type your core prompt here (e.g., 'Write an email about the new Q3 roadmap')">
+    <button class="dock-copy-btn" id="dockCopyBtn">COPY FULL PROMPT</button>
+  </div>
+</div>
+
+<!-- PLAYBOOK OVERLAY -->
+<div id="playbookOverlay" class="playbook-overlay">
+  <div class="playbook-header">
+    <span class="playbook-title"><span class="nav-brand-dot" style="display:inline-block; margin-right:8px;"></span> PLAYBOOK PRESENTATION</span>
+    <button id="closePlaybookBtn" class="playbook-close">CLOSE ×</button>
+  </div>
+  <iframe id="playbookFrame" class="playbook-frame"></iframe>
+</div>
+
 <script>
 const MODIFIERS = [
-  {code:"/ghost",type:"slash",place:"before",cat:"Writing",what:"Strips all AI tells — no em-dashes, hedging, or filler. Reads like a human typed it at 11pm.",ex:"/ghost Rewrite this product description: [text]",use:"Cold emails, LinkedIn posts, casual blogs, customer support replies"},
-  {code:"/mirror",type:"slash",place:"before",cat:"Writing",what:"Matches your exact writing style from a sample you provide. Locks your voice permanently.",ex:"/mirror [paste 3 paragraphs] Now write a blog intro about Core Web Vitals",use:"Personal branding, ghostwriting, consistent tone across content"},
-  {code:"/punch",type:"slash",place:"before",cat:"Writing",what:"Makes every sentence shorter, harder, more direct. Kills weak openers and passive voice.",ex:"/punch Rewrite this cold email: [text]",use:"Sales copy, CTAs, executive summaries, subject lines"},
-  {code:"/trim",type:"slash",place:"before",cat:"Writing",what:"Cuts fluff without losing meaning. Shortens output by 30–50% intelligently.",ex:"/trim [paste your long paragraph]",use:"Blog posts, emails, documentation that runs too long"},
-  {code:"/hook",type:"slash",place:"before",cat:"Writing",what:"Rewrites only the opening line to grab attention instantly — nothing else changes.",ex:"/hook My article starts with: 'SEO is changing fast...'",use:"Article intros, email subject lines, ad copy headlines"},
-  {code:"/rephrase",type:"slash",place:"before",cat:"Writing",what:"Restates the same idea in a completely different way. Same meaning, new structure.",ex:"/rephrase 'Our tool helps you rank faster on Google'",use:"A/B testing copy, avoiding repetition, simplifying jargon"},
-  {code:"/polish",type:"slash",place:"before",cat:"Writing",what:"Makes rough drafts sound professional without altering the core meaning.",ex:"/polish [paste rough draft]",use:"Client-facing docs, reports, proposals before sending"},
-  {code:"/flow",type:"slash",place:"before",cat:"Writing",what:"Restructures sentences so the piece reads smoother start to finish.",ex:"/flow [paste choppy paragraph]",use:"Blog posts, whitepapers, long-form SEO content"},
-  {code:"/raw",type:"slash",place:"before",cat:"Writing",what:"Strips all markdown — no bold, bullets, headers. Returns clean plain text only.",ex:"/raw Explain how backlinks work",use:"Copy-pasting into CMS, plain text emails, Notion"},
-  {code:"/voice",type:"slash",place:"before",cat:"Writing",what:"Locks a tone descriptor for the entire conversation, not just one reply.",ex:"/voice [casual and witty] Write a Twitter thread about page speed",use:"Brand tone consistency, multi-message content sessions"},
-  {code:"L99",type:"upper",place:"after",cat:"Reasoning",what:"Expert-level, opinion-first, deeply technical. Picks one approach. Zero hedging.",ex:"Design a caching strategy for a high-traffic Next.js app L99",use:"Architecture decisions, technical docs, deep-dive analyses"},
-  {code:"OODA",type:"upper",place:"before",cat:"Reasoning",what:"Observe → Orient → Decide → Act. Military decision loop applied to your problem.",ex:"OODA My SaaS churn rate jumped 15% after the last release",use:"Incident response, postmortems, startup pivots, crises"},
-  {code:"ULTRATHINK",type:"upper",place:"before",cat:"Reasoning",what:"Extended reasoning before output. Slower but dramatically better on hard problems.",ex:"ULTRATHINK Design the schema for a multi-tenant analytics platform",use:"System design, hard debugging, architecture reviews"},
-  {code:"/deepthink",type:"slash",place:"before",cat:"Reasoning",what:"Forces reasoning through every layer first. The slow path that gets the right answer.",ex:"/deepthink Why is my Core Web Vitals score dropping on mobile only?",use:"Root cause analysis, 'why' questions, complex debugging"},
-  {code:"STEELMAN",type:"upper",place:"before",cat:"Reasoning",what:"Builds the strongest possible case for an argument — even one you oppose.",ex:"STEELMAN Server-side rendering is obsolete in 2026",use:"Debate prep, stress-testing ideas, strategic planning"},
-  {code:"/skeptic",type:"slash",place:"before",cat:"Reasoning",what:"Argues the opposite. Surfaces every flaw and counterargument relentlessly.",ex:"/skeptic My plan is to rank with 100 AI articles per week",use:"Strategy review, due diligence, catching blind spots"},
-  {code:"PARETO",type:"upper",place:"before",cat:"Reasoning",what:"Returns the 20% of actions that drive 80% of results. Cuts everything else.",ex:"PARETO What should I focus on to double organic traffic in 3 months?",use:"Prioritization, productivity, cutting scope, startup focus"},
-  {code:"CRISPE",type:"upper",place:"before",cat:"Reasoning",what:"Structured framework: Capacity, Role, Insight, Statement, Personality, Experiment.",ex:"CRISPE Explain React Server Components to a junior developer",use:"Teaching, structured explanations, onboarding docs"},
-  {code:"REFRAME",type:"upper",place:"before",cat:"Reasoning",what:"Attacks your problem from a completely different angle or mental model.",ex:"REFRAME Why is my bounce rate high despite good content?",use:"Stuck problems, creative blocks, alternative diagnosis"},
-  {code:"PREMORTEM",type:"upper",place:"after",cat:"Reasoning",what:"Assumes the plan already failed. Works backward to explain exactly why.",ex:"We're launching a new API integration next week PREMORTEM",use:"Launch planning, risk assessment, product releases"},
-  {code:"ARTIFACTS",type:"upper",place:"before",cat:"Creation",what:"Generates a full interactive project or tool you can use immediately.",ex:"ARTIFACTS Build an interactive keyword density checker",use:"Quick MVPs, interactive demos, shareable tools"},
-  {code:"DASHBOARD",type:"upper",place:"before",cat:"Creation",what:"Builds a live, interactive data dashboard with controls.",ex:"DASHBOARD Create a backlink monitoring dashboard with mock data",use:"Reporting tools, KPI trackers, client-facing dashboards"},
-  {code:"PROTOTYPE",type:"upper",place:"before",cat:"Creation",what:"Generates a working prototype from just a plain-language description.",ex:"PROTOTYPE A Chrome extension that highlights thin content on any page",use:"Idea validation, hackathons, stakeholder demos"},
-  {code:"BLUEPRINT",type:"upper",place:"before",cat:"Creation",what:"Full project plan — file structure, tech stack, and milestones before code.",ex:"BLUEPRINT Next.js SEO audit SaaS with Supabase and Stripe",use:"Project kickoff, freelance scoping, team alignment"},
-  {code:"WIREFRAME",type:"upper",place:"before",cat:"Creation",what:"Designs a basic layout for a website or app screen visually.",ex:"WIREFRAME An SEO content calendar dashboard for a small agency",use:"Design handoffs, client presentations, layout planning"},
-  {code:"CANVAS",type:"upper",place:"before",cat:"Creation",what:"Opens a visual workspace for layouts, diagrams, and flowcharts.",ex:"CANVAS Map out the information architecture of my SaaS product",use:"IA design, sitemap planning, content hierarchy"},
-  {code:"GENERATOR",type:"upper",place:"before",cat:"Creation",what:"Builds a reusable tool that produces outputs on demand repeatedly.",ex:"GENERATOR A meta description generator for e-commerce product pages",use:"Content ops, SEO automation, marketing tooling"},
-  {code:"/buildme",type:"slash",place:"before",cat:"Creation",what:"Creates a complete working app or tool from a plain description in one shot.",ex:"/buildme A page speed scoring tool that fetches Core Web Vitals",use:"Internal tools, scripts, automation utilities"},
-  {code:"/render",type:"slash",place:"before",cat:"Creation",what:"Turns a text description into a visual output inside the chat window.",ex:"/render A flowchart of how Googlebot crawls a Next.js app",use:"Visual explainers, process diagrams, client visuals"},
-  {code:"/livecode",type:"slash",place:"before",cat:"Creation",what:"Writes and runs code in real time. You see it work immediately.",ex:"/livecode A Python script to bulk-check canonical tags via sitemap",use:"Quick scripts, data processing, live debugging"},
-  {code:"SWOT",type:"upper",place:"before",cat:"Analysis",what:"Structures output as Strengths, Weaknesses, Opportunities, Threats — no fluff.",ex:"SWOT Analyze my agency's current SEO service offering",use:"Strategy reviews, competitive analysis, product planning"},
-  {code:"COMPARE",type:"upper",place:"before",cat:"Analysis",what:"Side-by-side structured comparison. Highlights differences with clear criteria.",ex:"COMPARE Screaming Frog vs Ahrefs for a technical SEO audit",use:"Tool evaluation, vendor selection, tech decisions"},
-  {code:"DECISION",type:"upper",place:"after",cat:"Analysis",what:"Forces a final recommendation. No menus, no 'it depends'. One answer.",ex:"Should I use Next.js or Astro for my SEO blog? DECISION",use:"When you need a verdict, not a list of tradeoffs"},
-  {code:"PERSONA",type:"upper",place:"before",cat:"Analysis",what:"Assigns a specific domain expert identity. Maintains it for the full response.",ex:"PERSONA Senior Google Search Quality Evaluator. Review this page: [URL]",use:"Niche expert advice, domain-specific depth, role-based feedback"},
-  {code:"/godmode",type:"slash",place:"before",cat:"Analysis",what:"More exhaustive output — edge cases, tradeoffs, nuance. Longer, not always sharper.",ex:"/godmode Create a go-to-market strategy for an AI SEO tool",use:"Comprehensive strategy docs, thorough frameworks"},
-  {code:"/debug",type:"slash",place:"before",cat:"Code",what:"Diagnoses broken code step by step. Surfaces the exact line and root cause first.",ex:"/debug My Next.js API route returns 500 only in production: [paste code]",use:"Bug hunting, production errors, async logic failures"},
-  {code:"/refactor",type:"slash",place:"before",cat:"Code",what:"Rewrites code for readability and maintainability without changing behaviour.",ex:"/refactor [paste messy component] Target: clean React with hooks",use:"Code review prep, onboarding, legacy cleanup"},
-  {code:"/test",type:"slash",place:"before",cat:"Code",what:"Generates a full test suite for the function or module you paste in.",ex:"/test [paste utility function] Use Vitest with coverage for edge cases",use:"CI setup, QA automation, TDD workflows"},
-  {code:"/explain",type:"slash",place:"before",cat:"Code",what:"Walks through code line by line in plain English. No jargon unless asked.",ex:"/explain [paste regex pattern] What does every token do here?",use:"Code reviews, onboarding, learning unfamiliar codebases"},
-  {code:"SEOAUDIT",type:"upper",place:"before",cat:"Code",what:"Full on-page SEO review — title, meta, headings, schema, Core Web Vitals checks.",ex:"SEOAUDIT [paste page HTML or URL] Score it against E-E-A-T signals",use:"Pre-publish checks, client audits, CMS migrations"},
-  {code:"SCHEMA",type:"upper",place:"before",cat:"Code",what:"Generates valid JSON-LD structured data markup for the entity or page described.",ex:"SCHEMA A local bakery with opening hours, menu and reviews",use:"Rich result targeting, local SEO, product and FAQ pages"},
-  {code:"METAGEN",type:"upper",place:"before",cat:"Code",what:"Writes SEO-optimised title tags and meta descriptions. Stays under character limits.",ex:"METAGEN 10 product pages for a headless Shopify store selling running gear",use:"Bulk meta generation, CMS imports, content ops pipelines"},
-  {code:"/crawl",type:"slash",place:"before",cat:"Code",what:"Simulates a Googlebot crawl path through a site structure. Flags indexability issues.",ex:"/crawl [paste sitemap XML] Flag noindex, redirect chains and orphan pages",use:"Technical SEO audits, migration checks, crawl budget analysis"},
+  {code:"/ghost",type:"slash",place:"before",cat:"Writing",what:"Strips all AI tells — no em-dashes, hedging, or filler. Reads like a human typed it at 11pm.",ex:"/ghost Rewrite this product description: [text]",use:"Cold emails, LinkedIn posts, casual blogs", tags:["robotic","fake","human","ai tone","cringe"], xrayBefore:"Moreover, it is a game-changer...", xrayAfter:"Bottom line: it works."},
+  {code:"/mirror",type:"slash",place:"before",cat:"Writing",what:"Matches your exact writing style from a sample you provide. Locks your voice permanently.",ex:"/mirror [paste 3 paragraphs] Now write a blog intro...",use:"Personal branding, ghostwriting", tags:["style","tone","copy","mimic","brand"], xrayBefore:"[Generic AI enthusiastic tone]", xrayAfter:"[Matches your exact sentence structure]"},
+  {code:"/punch",type:"slash",place:"before",cat:"Writing",what:"Makes every sentence shorter, harder, more direct. Kills weak openers and passive voice.",ex:"/punch Rewrite this cold email: [text]",use:"Sales copy, CTAs, executive summaries", tags:["weak","passive","long","direct","concise","fluff"], xrayBefore:"The ball was thrown by him.", xrayAfter:"He threw the ball."},
+  {code:"/trim",type:"slash",place:"before",cat:"Writing",what:"Cuts fluff without losing meaning. Shortens output by 30–50% intelligently.",ex:"/trim [paste your long paragraph]",use:"Blog posts, emails, documentation", tags:["long","verbose","wordy","shorten","cut"], xrayBefore:"[400 words of background info]", xrayAfter:"[150 words of core facts]"},
+  {code:"/hook",type:"slash",place:"before",cat:"Writing",what:"Rewrites only the opening line to grab attention instantly — nothing else changes.",ex:"/hook My article starts with: 'SEO is changing...'",use:"Article intros, email subject lines", tags:["boring","intro","start","attention","open"], xrayBefore:"SEO is changing very fast today...", xrayAfter:"Stop optimizing for last year's Google."},
+  {code:"/rephrase",type:"slash",place:"before",cat:"Writing",what:"Restates the same idea in a completely different way. Same meaning, new structure.",ex:"/rephrase 'Our tool helps you rank faster'",use:"A/B testing copy, simplifying jargon", tags:["repeat","synonym","rewrite","different"], xrayBefore:"Our tool helps you rank faster.", xrayAfter:"Dominate page one in half the time."},
+  {code:"/polish",type:"slash",place:"before",cat:"Writing",what:"Makes rough drafts sound professional without altering the core meaning.",ex:"/polish [paste rough draft]",use:"Client-facing docs, reports", tags:["rough","draft","unprofessional","clean"], xrayBefore:"here is the stuff we did this week", xrayAfter:"Weekly Progress Report: Key Deliverables"},
+  {code:"/flow",type:"slash",place:"before",cat:"Writing",what:"Restructures sentences so the piece reads smoother start to finish.",ex:"/flow [paste choppy paragraph]",use:"Blog posts, long-form content", tags:["choppy","clunky","smooth","readability"], xrayBefore:"I went to the store. I bought milk.", xrayAfter:"I went to the store to buy milk."},
+  {code:"/raw",type:"slash",place:"before",cat:"Writing",what:"Strips all markdown — no bold, bullets, headers. Returns clean plain text only.",ex:"/raw Explain how backlinks work",use:"Copy-pasting into CMS, Notion", tags:["format","markdown","bold","clean text"], xrayBefore:"**Step 1:** Do this.\n* Point A", xrayAfter:"Step 1: Do this. Point A."},
+  {code:"/voice",type:"slash",place:"before",cat:"Writing",what:"Locks a tone descriptor for the entire conversation, not just one reply.",ex:"/voice [casual and witty] Write a thread",use:"Brand tone consistency", tags:["persona","character","consistent","tone"], xrayBefore:"Here is your requested thread:", xrayAfter:"Let's break this down:"},
+  
+  {code:"L99",type:"upper",place:"after",cat:"Reasoning",what:"Expert-level, opinion-first, deeply technical. Picks one approach. Zero hedging.",ex:"Design a caching strategy L99",use:"Architecture decisions, technical docs", tags:["expert","senior","advanced","no fluff","opinion"], xrayBefore:"There are many ways. You could use...", xrayAfter:"Use Redis. Here is the implementation:"},
+  {code:"OODA",type:"upper",place:"before",cat:"Reasoning",what:"Observe → Orient → Decide → Act. Military decision loop applied to your problem.",ex:"OODA My SaaS churn rate jumped 15%",use:"Incident response, crises", tags:["crisis","decision","framework","stuck"], xrayBefore:"[Standard list of 10 reasons]", xrayAfter:"[Observation] -> [Orientation] -> [Action Plan]"},
+  {code:"ULTRATHINK",type:"upper",place:"before",cat:"Reasoning",what:"Extended reasoning before output. Slower but dramatically better on hard problems.",ex:"ULTRATHINK Design the schema...",use:"System design, hard debugging", tags:["logic","hard","complex","math","puzzle"], xrayBefore:"[Immediate incorrect answer]", xrayAfter:"<thinking> Let's map dependencies...</thinking> [Correct]"},
+  {code:"/deepthink",type:"slash",place:"before",cat:"Reasoning",what:"Forces reasoning through every layer first. The slow path that gets the right answer.",ex:"/deepthink Why is my score dropping?",use:"Root cause analysis, 'why' questions", tags:["root cause","deep","analysis","why"], xrayBefore:"It might be A, B, or C.", xrayAfter:"Based on the waterfall, the blocker is X."},
+  {code:"STEELMAN",type:"upper",place:"before",cat:"Reasoning",what:"Builds the strongest possible case for an argument — even one you oppose.",ex:"STEELMAN SSR is obsolete",use:"Debate prep, stress-testing ideas", tags:["debate","argument","oppose","strong"], xrayBefore:"Some people incorrectly believe...", xrayAfter:"The strongest argument for this is..."},
+  {code:"/skeptic",type:"slash",place:"before",cat:"Reasoning",what:"Argues the opposite. Surfaces every flaw and counterargument relentlessly.",ex:"/skeptic My plan is to rank...",use:"Strategy review, due diligence", tags:["flaw","blind spot","criticize","tear down"], xrayBefore:"This is a great plan! Here's how to do it.", xrayAfter:"This plan will fail because of X and Y."},
+  {code:"PARETO",type:"upper",place:"before",cat:"Reasoning",what:"Returns the 20% of actions that drive 80% of results. Cuts everything else.",ex:"PARETO What should I focus on?",use:"Prioritization, productivity", tags:["prioritize","focus","80/20","overwhelmed"], xrayBefore:"[List of 50 SEO tactics]", xrayAfter:"[The 3 tactics that actually move the needle]"},
+  {code:"CRISPE",type:"upper",place:"before",cat:"Reasoning",what:"Structured framework: Capacity, Role, Insight, Statement, Personality, Experiment.",ex:"CRISPE Explain React Server Components",use:"Teaching, onboarding docs", tags:["framework","teach","explain","structure"]},
+  {code:"REFRAME",type:"upper",place:"before",cat:"Reasoning",what:"Attacks your problem from a completely different angle or mental model.",ex:"REFRAME Why is my bounce rate high?",use:"Stuck problems, alternative diagnosis", tags:["stuck","different","angle","creative"], xrayBefore:"Your site might be slow.", xrayAfter:"What if high bounce rate means they found the answer instantly?"},
+  {code:"PREMORTEM",type:"upper",place:"after",cat:"Reasoning",what:"Assumes the plan already failed. Works backward to explain exactly why.",ex:"Launching a new API PREMORTEM",use:"Launch planning, risk assessment", tags:["risk","fail","launch","prevent"], xrayBefore:"To succeed, you should...", xrayAfter:"It is 6 months later. The launch failed because..."},
+
+  {code:"ARTIFACTS",type:"upper",place:"before",cat:"Creation",what:"Generates a full interactive project or tool you can use immediately.",ex:"ARTIFACTS Build an interactive checker",use:"Quick MVPs, interactive demos", tags:["react","html","game","app","tool"], xrayBefore:"[Code block you have to copy/paste]", xrayAfter:"[Renders a live, playable UI widget]"},
+  {code:"DASHBOARD",type:"upper",place:"before",cat:"Creation",what:"Builds a live, interactive data dashboard with controls.",ex:"DASHBOARD Create a backlink monitor",use:"Reporting tools, KPI trackers", tags:["data","chart","report","visual"], xrayBefore:"[Markdown table of data]", xrayAfter:"[Interactive React dashboard artifact]"},
+  {code:"PROTOTYPE",type:"upper",place:"before",cat:"Creation",what:"Generates a working prototype from just a plain-language description.",ex:"PROTOTYPE A Chrome extension...",use:"Idea validation, hackathons", tags:["mvp","idea","build","working app"], xrayBefore:"Here is how you might build it:", xrayAfter:"[Fully functional prototype artifact]"},
+  {code:"BLUEPRINT",type:"upper",place:"before",cat:"Creation",what:"Full project plan — file structure, tech stack, and milestones before code.",ex:"BLUEPRINT Next.js SEO audit SaaS",use:"Project kickoff, scoping", tags:["plan","architecture","folder structure"], xrayBefore:"[Wall of random code]", xrayAfter:"1. Architecture\n2. Stack\n3. Milestones"},
+  {code:"WIREFRAME",type:"upper",place:"before",cat:"Creation",what:"Designs a basic layout for a website or app screen visually.",ex:"WIREFRAME An SEO content calendar",use:"Design handoffs, layout planning", tags:["design","layout","ui","ux"], xrayBefore:"[Text description of a UI]", xrayAfter:"[SVG or Mermaid visual mockup]"},
+  {code:"CANVAS",type:"upper",place:"before",cat:"Creation",what:"Opens a visual workspace for layouts, diagrams, and flowcharts.",ex:"CANVAS Map out the IA of my SaaS",use:"IA design, sitemap planning", tags:["visual","diagram","flowchart","map"], xrayBefore:"[Bulleted list of pages]", xrayAfter:"[Interactive Mermaid flowchart]"},
+  {code:"GENERATOR",type:"upper",place:"before",cat:"Creation",what:"Builds a reusable tool that produces outputs on demand repeatedly.",ex:"GENERATOR A meta description generator",use:"Content ops, SEO automation", tags:["automate","tooling","reusable","factory"]},
+  {code:"/buildme",type:"slash",place:"before",cat:"Creation",what:"Creates a complete working app or tool from a plain description in one shot.",ex:"/buildme A page speed scoring tool",use:"Internal tools, scripts", tags:["app","one shot","complete","code"]},
+  {code:"/render",type:"slash",place:"before",cat:"Creation",what:"Turns a text description into a visual output inside the chat window.",ex:"/render A flowchart of Googlebot",use:"Visual explainers, process diagrams", tags:["visual","draw","image","svg"]},
+  {code:"/livecode",type:"slash",place:"before",cat:"Creation",what:"Writes and runs code in real time. You see it work immediately.",ex:"/livecode A Python script to check tags",use:"Quick scripts, live debugging", tags:["run","execute","python","script"]},
+
+  {code:"SWOT",type:"upper",place:"before",cat:"Analysis",what:"Structures output as Strengths, Weaknesses, Opportunities, Threats — no fluff.",ex:"SWOT Analyze my agency's SEO offering",use:"Strategy reviews, competitive analysis", tags:["business","strategy","matrix","competitor"], xrayBefore:"Your agency is good at X, but lacking Y...", xrayAfter:"[Strict 4-quadrant SWOT matrix]"},
+  {code:"COMPARE",type:"upper",place:"before",cat:"Analysis",what:"Side-by-side structured comparison. Highlights differences with clear criteria.",ex:"COMPARE Screaming Frog vs Ahrefs",use:"Tool evaluation, tech decisions", tags:["vs","versus","difference","table"], xrayBefore:"Tool A does X. Tool B does Y.", xrayAfter:"[Feature-by-feature comparison table]"},
+  {code:"DECISION",type:"upper",place:"after",cat:"Analysis",what:"Forces a final recommendation. No menus, no 'it depends'. One answer.",ex:"Should I use Next.js or Astro? DECISION",use:"When you need a verdict", tags:["choose","verdict","pick one","it depends"], xrayBefore:"Both have pros and cons. It depends on...", xrayAfter:"Use Astro. Because of X and Y."},
+  {code:"PERSONA",type:"upper",place:"before",cat:"Analysis",what:"Assigns a specific domain expert identity. Maintains it for the full response.",ex:"PERSONA Google Search Evaluator. Review:",use:"Niche expert advice, roleplay", tags:["act as","roleplay","expert","identity"], xrayBefore:"[Standard AI helpful response]", xrayAfter:"[Harsh, technical Search Evaluator critique]"},
+  {code:"/godmode",type:"slash",place:"before",cat:"Analysis",what:"More exhaustive output — edge cases, tradeoffs, nuance. Longer, not always sharper.",ex:"/godmode Create a GTM strategy",use:"Comprehensive strategy docs", tags:["exhaustive","detailed","long","comprehensive"]},
+
+  {code:"/debug",type:"slash",place:"before",cat:"Code",what:"Diagnoses broken code step by step. Surfaces the exact line and root cause first.",ex:"/debug My API route returns 500",use:"Bug hunting, production errors", tags:["error","bug","broken","fix","crash"], xrayBefore:"Here is a rewritten version of your code:", xrayAfter:"Root cause: Line 42 is awaiting a non-promise."},
+  {code:"/refactor",type:"slash",place:"before",cat:"Code",what:"Rewrites code for readability and maintainability without changing behaviour.",ex:"/refactor [paste component] Target: clean",use:"Code review prep, legacy cleanup", tags:["messy","clean up","legacy","improve"], xrayBefore:"[Original spaghetti code]", xrayAfter:"[Modular, typed, DRY code]"},
+  {code:"/test",type:"slash",place:"before",cat:"Code",what:"Generates a full test suite for the function or module you paste in.",ex:"/test [paste function] Use Vitest",use:"CI setup, QA automation, TDD", tags:["jest","vitest","qa","coverage"]},
+  {code:"/explain",type:"slash",place:"before",cat:"Code",what:"Walks through code line by line in plain English. No jargon unless asked.",ex:"/explain [paste regex pattern]",use:"Code reviews, learning", tags:["what does this do","understand","regex"], xrayBefore:"This regex uses a negative lookahead...", xrayAfter:"This code checks if the email is missing an @ symbol."},
+  {code:"SEOAUDIT",type:"upper",place:"before",cat:"Code",what:"Full on-page SEO review — title, meta, headings, schema, Core Web Vitals.",ex:"SEOAUDIT [paste URL]",use:"Pre-publish checks, audits", tags:["seo","rank","audit","check","on-page"], xrayBefore:"Your site looks fine.", xrayAfter:"[Flags missing H1, duplicate canonical, thin content]"},
+  {code:"SCHEMA",type:"upper",place:"before",cat:"Code",what:"Generates valid JSON-LD structured data markup for the entity described.",ex:"SCHEMA A local bakery",use:"Rich results, local SEO", tags:["json-ld","rich snippets","google","structured data"], xrayBefore:"Here is the HTML for a bakery:", xrayAfter:"[Valid JSON-LD Schema.org script tag]"},
+  {code:"METAGEN",type:"upper",place:"before",cat:"Code",what:"Writes SEO-optimised title tags and meta descriptions. Stays under limits.",ex:"METAGEN 10 product pages",use:"Bulk meta generation, CMS", tags:["title tag","description","seo","bulk"], xrayBefore:"[Descriptions that are 200 chars long]", xrayAfter:"[Strict 155-char limit optimized descriptions]"},
+  {code:"/crawl",type:"slash",place:"before",cat:"Code",what:"Simulates a Googlebot crawl path through a site structure. Flags indexability.",ex:"/crawl [paste sitemap XML]",use:"Technical SEO, crawl budget", tags:["spider","googlebot","index","sitemap"], xrayBefore:"[Reads the XML visually]", xrayAfter:"[Simulates bot path, flags 3 orphan URLs]"}
 ];
 
+// Fully connected to dynamic CSS RGB variables for perfect theming
 const CATS = {
-  Writing:{icon:"✍",color:"#fa6d8f"},
-  Reasoning:{icon:"🧠",color:"#7c6dfa"},
-  Creation:{icon:"🏗",color:"#6dfacc"},
-  Analysis:{icon:"🔍",color:"#fac86d"},
-  Code:{icon:"⌨",color:"#6db5fa"},
+  Writing:   { icon: "✍", rgbVar: "--rgb-accent2", hexVar: "var(--accent2)" },
+  Reasoning: { icon: "🧠", rgbVar: "--rgb-accent",  hexVar: "var(--accent)" },
+  Creation:  { icon: "🏗", rgbVar: "--rgb-accent3", hexVar: "var(--accent3)" },
+  Analysis:  { icon: "🔍", rgbVar: "--rgb-accent4", hexVar: "var(--accent4)" },
+  Code:      { icon: "⌨", rgbVar: "--rgb-accent5", hexVar: "var(--accent5)" },
 };
 
 let currentCat = "all";
 let searchQ = "";
+let alchemyStack = [];
+
+function initFilters() {
+  const container = document.getElementById("filterContainer");
+  const catOrder = ["Writing","Reasoning","Creation","Analysis","Code"];
+  
+  let html = `<button class="filter-btn active" data-cat="all"><span>All</span><span class="count-badge">(${MODIFIERS.length})</span></button>`;
+  
+  catOrder.forEach(cat => {
+    const count = MODIFIERS.filter(m => m.cat === cat).length;
+    const info = CATS[cat];
+    html += `<button class="filter-btn" data-cat="${cat}"><span>${info.icon} ${cat}</span><span class="count-badge">(${count})</span></button>`;
+  });
+  
+  container.innerHTML = html;
+  
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCat = btn.dataset.cat;
+      render();
+    });
+  });
+}
 
 function highlight(text, q) {
   if (!q) return text;
@@ -706,11 +848,9 @@ function render() {
   if (searchQ) {
     const q = searchQ.toLowerCase();
     items = items.filter(m =>
-      m.code.toLowerCase().includes(q) ||
-      m.what.toLowerCase().includes(q) ||
-      m.use.toLowerCase().includes(q) ||
-      m.ex.toLowerCase().includes(q) ||
-      m.cat.toLowerCase().includes(q)
+      m.code.toLowerCase().includes(q) || m.what.toLowerCase().includes(q) ||
+      m.use.toLowerCase().includes(q) || m.ex.toLowerCase().includes(q) ||
+      m.cat.toLowerCase().includes(q) || (m.tags && m.tags.some(t => t.includes(q)))
     );
   }
 
@@ -725,7 +865,6 @@ function render() {
   }
   empty.style.display = "none";
 
-  // Group by category
   const groups = {};
   items.forEach(m => {
     if (!groups[m.cat]) groups[m.cat] = [];
@@ -737,106 +876,227 @@ function render() {
 
   content.innerHTML = orderedGroups.map(cat => {
     const ms = groups[cat];
-    const info = CATS[cat] || {icon:"◆",color:"#7c6dfa"};
+    const info = CATS[cat];
     const cards = ms.map(m => {
       const typeClass = m.type === "slash" ? "slash-pill" : "upper-pill";
       const plClass = m.place === "before" ? "pl-before" : m.place === "after" ? "pl-after" : "pl-both";
       const q = searchQ;
+      
+      // Fallback generator for X-Ray text if undefined in DB
+      const bText = m.xrayBefore || "[Standard AI output format...]";
+      const aText = m.xrayAfter || `[Structured via ${m.code} instruction]`;
+      
       return `<div class="card" data-code="${m.code}" title="Click to copy: ${m.code}">
         <div class="card-top">
           <span class="code-pill ${typeClass}">${highlight(m.code, q)}</span>
           <span class="placement ${plClass}">${m.place}</span>
-          <span class="card-name" style="font-size:11px;color:var(--muted);font-family:var(--mono)">${m.type}</span>
+          <span class="card-name">${m.type}</span>
+          <button class="add-stack-btn" data-code="${m.code}" aria-label="Add to dock">+</button>
         </div>
         <p class="card-what">${highlight(m.what, q)}</p>
-        <div class="card-ex"><div class="card-ex-inner">${highlight(m.ex, q)}</div></div>
+        <div class="card-ex">
+            <div class="card-ex-inner">${highlight(m.ex, q)}</div>
+            <div class="xray-view">
+                <span class="xray-before">${bText}</span>
+                <span class="xray-after">${aText}</span>
+            </div>
+        </div>
         <div class="card-use"><span class="use-label">USE →</span>${highlight(m.use, q)}</div>
       </div>`;
     }).join("");
 
     return `<div class="cat-group reveal">
       <div class="cat-header">
-        <div class="cat-icon" style="background:${info.color}22;color:${info.color}">${info.icon}</div>
-        <div class="cat-name" style="color:${info.color}">${cat.toUpperCase()}</div>
+        <div class="cat-icon" style="background:rgba(var(${info.rgbVar}), 0.15); color:${info.hexVar}">${info.icon}</div>
+        <div class="cat-name" style="color:${info.hexVar}">${cat.toUpperCase()}</div>
         <div class="cat-count">${ms.length} modifiers</div>
       </div>
       <div class="cards">${cards}</div>
     </div>`;
   }).join("");
 
-  // Animate cards in
   requestAnimationFrame(() => {
     document.querySelectorAll(".reveal").forEach((el, i) => {
       setTimeout(() => el.classList.add("in"), i * 80);
     });
   });
 
-  // Click to copy
+  bindCardInteractions();
+}
+
+function bindCardInteractions() {
   document.querySelectorAll(".card").forEach(card => {
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (e) => {
+      if(e.target.closest('.add-stack-btn')) return; 
       const code = card.dataset.code;
-      navigator.clipboard.writeText(code).catch(() => {});
-      const flash = document.getElementById("copyFlash");
-      flash.textContent = `Copied "${code}" to clipboard ✓`;
-      flash.classList.add("show");
-      setTimeout(() => flash.classList.remove("show"), 2000);
+      navigator.clipboard.writeText(code).catch(() => {
+          // Fallback if clipboard API fails in iFrame
+          const textArea = document.createElement("textarea");
+          textArea.value = code;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+          } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+          }
+          document.body.removeChild(textArea);
+      });
+      showFlash(`Copied "${code}" to clipboard ✓`);
     });
+
+    card.addEventListener("mousemove", (e) => {
+      if(window.innerWidth <= 768) return; 
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; 
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6; 
+      const rotateY = ((x - centerX) / centerX) * 6;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      card.style.transition = `transform 0.5s ease`;
+    });
+    card.addEventListener("mouseenter", () => {
+        card.style.transition = `none`; 
+    });
+  });
+
+  document.querySelectorAll('.add-stack-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+          const code = btn.dataset.code;
+          if(!alchemyStack.includes(code)) {
+              alchemyStack.push(code);
+              updateDock();
+          }
+      });
   });
 }
 
-// Search
+function showFlash(msg) {
+  const flash = document.getElementById("copyFlash");
+  flash.textContent = msg;
+  flash.classList.add("show");
+  setTimeout(() => flash.classList.remove("show"), 2000);
+}
+
+const dock = document.getElementById('alchemyDock');
+const dockTags = document.getElementById('dockTags');
+const dockInput = document.getElementById('dockInput');
+const closeDock = document.getElementById('closeDock');
+const copyDockBtn = document.getElementById('dockCopyBtn');
+const tableSection = document.getElementById('tableSection');
+
+function updateDock() {
+    if(alchemyStack.length > 0) {
+        dock.classList.add('active');
+        tableSection.style.paddingBottom = "140px"; // Ensure footer isn't covered
+        dockTags.innerHTML = alchemyStack.map(code => 
+            `<div class="dock-tag">${code} <button onclick="removeFromStack('${code}')" aria-label="Remove tag">×</button></div>`
+        ).join('');
+    } else {
+        dock.classList.remove('active');
+        tableSection.style.paddingBottom = "80px";
+    }
+}
+
+window.removeFromStack = function(code) {
+    alchemyStack = alchemyStack.filter(c => c !== code);
+    updateDock();
+}
+
+closeDock.addEventListener('click', () => {
+    alchemyStack = [];
+    updateDock();
+});
+
+copyDockBtn.addEventListener('click', () => {
+    const userText = dockInput.value.trim() || "[Insert your prompt here]";
+    const beforeMods = alchemyStack.filter(c => c.startsWith('/') || MODIFIERS.find(m=>m.code===c)?.place === 'before');
+    const afterMods = alchemyStack.filter(c => !beforeMods.includes(c));
+    
+    const finalPrompt = `${beforeMods.join(' ')} ${userText} ${afterMods.join(' ')}`.trim();
+    
+    navigator.clipboard.writeText(finalPrompt).catch(() => {
+          // Fallback if clipboard API fails in iFrame
+          const textArea = document.createElement("textarea");
+          textArea.value = finalPrompt;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+          } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+          }
+          document.body.removeChild(textArea);
+    });
+    showFlash("Master Prompt Copied! ✓");
+});
+
+// X-Ray Logic (ALT Key)
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Alt') document.body.classList.add('xray-active');
+});
+document.addEventListener('keyup', (e) => {
+    if(e.key === 'Alt') document.body.classList.remove('xray-active');
+});
+window.addEventListener('blur', () => { document.body.classList.remove('xray-active'); });
+
+// Search Event
 document.getElementById("search").addEventListener("input", e => {
   searchQ = e.target.value.trim();
   render();
 });
 
-// Filters
-document.querySelectorAll(".filter-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentCat = btn.dataset.cat;
-    render();
-  });
+// Keyboard Shortcut: Press '/' to focus search
+document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault(); 
+        document.getElementById('search').focus();
+    }
 });
 
-// Cursor
+// Custom Cursor (Disabled on mobile for performance)
+const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
 const cursor = document.getElementById("cursor");
 const ring = document.getElementById("cursor-ring");
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
-function animCursor() {
-  cursor.style.left = mx + "px"; cursor.style.top = my + "px";
-  rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
-  ring.style.left = rx + "px"; ring.style.top = ry + "px";
-  requestAnimationFrame(animCursor);
-}
-animCursor();
-document.querySelectorAll("button,input,a,.card").forEach(el => {
-  el.addEventListener("mouseenter", () => {
-    cursor.style.width = "20px"; cursor.style.height = "20px";
-    cursor.style.background = "var(--accent2)";
-    ring.style.width = "50px"; ring.style.height = "50px";
-  });
-  el.addEventListener("mouseleave", () => {
-    cursor.style.width = "12px"; cursor.style.height = "12px";
-    cursor.style.background = "var(--accent)";
-    ring.style.width = "36px"; ring.style.height = "36px";
-  });
-});
+if(!isTouchDevice) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + "px"; cursor.style.top = my + "px";
+      rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+      ring.style.left = rx + "px"; ring.style.top = ry + "px";
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
 
-// Progress bar
+    document.addEventListener("mouseover", (e) => {
+      if (e.target.closest("button") || e.target.closest("input") || e.target.closest("a") || e.target.closest(".card")) {
+        cursor.style.width = "20px"; cursor.style.height = "20px";
+        cursor.style.background = "var(--accent2)";
+        ring.style.width = "50px"; ring.style.height = "50px";
+      }
+    });
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest("button") || e.target.closest("input") || e.target.closest("a") || e.target.closest(".card")) {
+        cursor.style.width = "12px"; cursor.style.height = "12px";
+        cursor.style.background = "var(--accent)";
+        ring.style.width = "36px"; ring.style.height = "36px";
+      }
+    });
+}
+
+// Progress Bar Setup
 window.addEventListener("scroll", () => {
   const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
   document.getElementById("progress").style.width = pct + "%";
-});
+}, {passive: true});
 
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
-}, { threshold: 0.1 });
-
-// Counter animation
 function animateCounters() {
   document.querySelectorAll("[data-target]").forEach(el => {
     const target = parseInt(el.dataset.target);
@@ -851,7 +1111,6 @@ function animateCounters() {
 }
 setTimeout(animateCounters, 600);
 
-// Particles
 function createParticles() {
   const container = document.getElementById("particles");
   for (let i = 0; i < 25; i++) {
@@ -877,7 +1136,6 @@ themeToggle.addEventListener("click", () => {
   themeLabel.textContent = isLight ? "LIGHT" : "DARK";
 });
 
-// Nav filter shortcut
 function setFilter(cat) {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   const btn = document.querySelector(`.filter-btn[data-cat="${cat}"]`);
@@ -887,8 +1145,699 @@ function setFilter(cat) {
   document.querySelector(".controls").scrollIntoView({behavior:"smooth"});
 }
 
-// Init
+initFilters();
 render();
+
+// --- PLAYBOOK INTEGRATION LOGIC ---
+// Storing the exact HTML provided into a template string, escaping necessary backticks and scripts
+const PLAYBOOK_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Modifiers Playbook - Animated Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"><\/script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Syne', 'sans-serif'],
+                    mono: ['Space Mono', 'monospace'],
+                },
+                colors: {
+                    bg: '#060810',
+                    surface: '#0c0f1a',
+                    surface2: '#111629',
+                    border: '#1e2540',
+                    accent: '#7c6dfa',
+                    accent2: '#fa6d8f',
+                    accent3: '#6dfacc',
+                    accent4: '#fac86d',
+                    text: '#e8ecff',
+                    muted: '#8892c0'
+                }
+            }
+        }
+    }
+<\/script>
+<style>
+    body {
+        background-color: #060810;
+        color: #e8ecff;
+        overflow: hidden; /* Prevent scrolling, it's a presentation */
+        cursor: none;
+    }
+
+    /* Custom Cursor */
+    #cursor {
+        position: fixed; width: 12px; height: 12px;
+        background: #7c6dfa; border-radius: 50%;
+        pointer-events: none; z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background 0.2s;
+        box-shadow: 0 0 20px rgba(124, 109, 250, 0.8);
+    }
+    #cursor-ring {
+        position: fixed; width: 36px; height: 36px;
+        border: 1px solid rgba(124, 109, 250, 0.5); border-radius: 50%;
+        pointer-events: none; z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: all 0.1s ease;
+    }
+
+    /* Background Effects */
+    .bg-grid {
+        position: fixed; inset: 0; z-index: 0;
+        background-image:
+            linear-gradient(rgba(124,109,250,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(124,109,250,0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridDrift 40s linear infinite;
+        opacity: 0.5;
+    }
+    @keyframes gridDrift { 0% { background-position: 0 0 } 100% { background-position: 60px 60px } }
+
+    /* Progress Bar */
+    #progress-bar {
+        position: fixed; top: 0; left: 0; height: 4px; z-index: 50;
+        background: linear-gradient(90deg, #7c6dfa, #fa6d8f, #6dfacc);
+        transition: width 0.4s ease-out;
+        width: 0%;
+    }
+
+    /* Slide Container & States */
+    .slide-container {
+        position: relative; width: 100vw; height: 100vh;
+        z-index: 10; display: flex; align-items: center; justify-content: center;
+    }
+    
+    .slide {
+        position: absolute; inset: 0; padding: 4rem;
+        display: flex; flex-direction: column; justify-content: center;
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transform: scale(0.95) translateY(20px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                    visibility 0.6s;
+    }
+    
+    .slide.active {
+        opacity: 1; visibility: visible; pointer-events: auto;
+        transform: scale(1) translateY(0);
+    }
+
+    .slide .reveal { opacity: 0; transform: translateY(20px); }
+    .slide.active .reveal { animation: fadeUp 0.6s forwards; }
+    
+    .slide.active .delay-1 { animation-delay: 0.1s; }
+    .slide.active .delay-2 { animation-delay: 0.2s; }
+    .slide.active .delay-3 { animation-delay: 0.3s; }
+    .slide.active .delay-4 { animation-delay: 0.4s; }
+    .slide.active .delay-5 { animation-delay: 0.5s; }
+
+    @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Terminal Mockup Style */
+    .terminal {
+        background: #0c0f1a; border: 1px solid #1e2540;
+        border-radius: 12px; overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(124, 109, 250, 0.1);
+    }
+    .terminal-header {
+        background: #111629; padding: 12px 16px; border-bottom: 1px solid #1e2540;
+        display: flex; gap: 8px; align-items: center;
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #fa6d8f; }
+    .terminal-dot.y { background: #fac86d; }
+    .terminal-dot.g { background: #6dfacc; }
+    .terminal-body { padding: 24px; font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.6; color: #8892c0; }
+
+    /* Modifier Tags */
+    .mod-tag {
+        display: inline-block; padding: 4px 10px; border-radius: 6px;
+        font-family: 'Space Mono', monospace; font-size: 0.85em; font-weight: bold;
+    }
+    .mod-slash { background: rgba(250, 109, 143, 0.15); border: 1px solid rgba(250, 109, 143, 0.3); color: #fa6d8f; }
+    .mod-upper { background: rgba(124, 109, 250, 0.15); border: 1px solid rgba(124, 109, 250, 0.3); color: #7c6dfa; }
+
+    .glow-text {
+        background: linear-gradient(135deg, #7c6dfa, #6dfacc);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* Navigation HUD */
+    .hud {
+        position: fixed; bottom: 30px; left: 0; right: 0; z-index: 50;
+        display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
+    }
+    .hud-btn {
+        background: rgba(17, 22, 41, 0.8); border: 1px solid #1e2540;
+        color: #e8ecff; padding: 12px 24px; border-radius: 100px;
+        font-family: 'Space Mono', monospace; font-size: 12px; cursor: none;
+        backdrop-filter: blur(10px); transition: all 0.2s;
+    }
+    .hud-btn:hover { border-color: #7c6dfa; background: rgba(124, 109, 250, 0.2); }
+    .hud-counter {
+        font-family: 'Space Mono', monospace; font-size: 14px; color: #8892c0; letter-spacing: 0.1em;
+    }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="bg-grid"></div>
+
+<div class="slide-container" id="deck">
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide active">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="reveal delay-1 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surface2 text-xs font-mono text-accent mb-8">
+                <span class="w-2 h-2 rounded-full bg-accent3 animate-pulse"></span> INTERACTIVE PLAYBOOK
+            </div>
+            <h1 class="reveal delay-2 text-6xl md:text-8xl font-bold mb-6 tracking-tight leading-none">
+                The <span class="glow-text">Claude</span><br>Modifiers
+            </h1>
+            <p class="reveal delay-3 text-xl text-muted font-mono max-w-2xl mx-auto mb-12">
+                From Beginner Basics to Power-User Automation. Stop writing paragraphs. Start using semantic signals.
+            </p>
+            <div class="reveal delay-4 text-sm text-muted2 font-mono flex items-center justify-center gap-4">
+                Use <kbd class="px-2 py-1 bg-surface2 border border-border rounded">Space</kbd> or arrows to navigate
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: WHAT ARE THEY? -->
+    <div class="slide">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
+            <div>
+                <h2 class="reveal delay-1 text-4xl font-bold mb-6">What are Modifiers?</h2>
+                <p class="reveal delay-2 text-lg text-muted mb-6">
+                    Claude defaults to a specific personality: polite, conversational, thorough, and sometimes "fluffy." 
+                </p>
+                <p class="reveal delay-3 text-lg text-muted mb-8">
+                    Modifiers are standardized semantic intent signals. They are highly optimized prompt-engineering triggers that act as strict constraints.
+                </p>
+                <ul class="reveal delay-4 space-y-4 font-mono text-sm">
+                    <li class="flex items-center gap-3"><span class="text-accent3">✓</span> <strong>Efficiency:</strong> Save time typing long instructions.</li>
+                    <li class="flex items-center gap-3"><span class="text-accent3">✓</span> <strong>Consistency:</strong> Get the exact format every time.</li>
+                    <li class="flex items-center gap-3"><span class="text-accent3">✓</span> <strong>Quality:</strong> Unlock latent reasoning capabilities.</li>
+                </ul>
+            </div>
+            <div class="reveal delay-5 terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    <span class="ml-4 text-xs font-mono text-muted">Format Types</span>
+                </div>
+                <div class="terminal-body">
+                    <span class="text-accent2">Slash Commands</span><br>
+                    <span class="text-white">/ghost</span> <span class="opacity-50">- Used for tone and writing style.</span><br><br>
+                    <span class="text-accent">Uppercase Keywords</span><br>
+                    <span class="text-white">ULTRATHINK</span> <span class="opacity-50">- Used for reasoning, framework, and structure.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: WRITING 1 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent font-mono text-sm mb-4 tracking-widest uppercase">Part 1: Beginner Workflows</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">The "Anti-AI" Email</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Write a professional message that sounds human. No "Delve," "Moreover," or emojis.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-slash mr-2">/ghost</span>
+                        <span class="mod-tag mod-slash">/punch</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                        <span class="ml-4 text-xs font-mono text-muted">Prompt Execution</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent2">/ghost</span> <span class="text-accent2">/punch</span> Rewrite this quick update: Our Q3 numbers are up 15%. I am waiting on Sarah for assets. Launch Thursday.
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> Q3 numbers are up 15%. Waiting on Sarah for marketing assets, but we're on track for Thursday.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: WRITING 2 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent font-mono text-sm mb-4 tracking-widest uppercase">Part 1: Beginner Workflows</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">Rapid Content Condensation</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Turn massive walls of text, transcripts, or meeting notes into immediate, actionable insights.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-upper mr-2">PARETO</span>
+                        <span class="mod-tag mod-slash">/trim</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent">PARETO</span> <span class="text-accent2">/trim</span> I missed this 1-hour all-hands meeting. What are the 3 things I actually need to care about? [Paste Transcript]
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            • Q4 Budgets are frozen until Nov 1.<br>
+                            • Engineering is migrating to AWS this weekend (expect downtime).<br>
+                            • Friday is now a company-wide half day.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: BUSINESS 1 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent4 font-mono text-sm mb-4 tracking-widest uppercase">Part 2: Professional Productivity</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">Ruthless Prioritization</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Break out of analysis paralysis. Force the AI to take a definitive stance.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-upper mr-2">SWOT</span>
+                        <span class="mod-tag mod-upper">DECISION</span>
+                    </div>
+                    <div class="reveal delay-5 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                        <p class="text-xs font-mono text-accent">PRO TIP: Placing DECISION at the end forces the AI to read its own analysis before concluding.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent">SWOT</span> Analyze migrating to AWS vs Vercel for our specific app stack. Then, give me a final <span class="text-accent">DECISION</span>.
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            [SWOT Matrix Generated...]<br><br>
+                            <span class="text-accent">VERDICT:</span> Use Vercel. You lack a dedicated DevOps team, and the premium cost is outweighed by engineering hours saved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: BUSINESS 2 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent4 font-mono text-sm mb-4 tracking-widest uppercase">Part 2: Professional Productivity</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">Uncovering Blind Spots</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Stress-test a business strategy, launch plan, or pitch deck before sharing it.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-slash mr-2">/skeptic</span>
+                        <span class="mod-tag mod-upper">PREMORTEM</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent2">/skeptic</span> <span class="text-accent">PREMORTEM</span> Here is my Go-To-Market strategy. Assume it is 12 months from now and the launch was a total disaster. Why did it fail?
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            It failed because your pricing model assumed enterprise adoption, but your distribution channel was entirely self-serve SEO. Sales cycles mismatched traffic intent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: DEV 1 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent3 font-mono text-sm mb-4 tracking-widest uppercase">Part 3: Developer & Tech</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">The "Senior Dev" Review</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Get ruthless, architecture-level feedback on code, rather than just syntax corrections.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-upper mr-2">L99</span>
+                        <span class="mod-tag mod-slash">/refactor</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent">L99</span> <span class="text-accent2">/refactor</span> Review this React component. Rewrite it for strict performance. No fluff: [Code]
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            Changes made:<br>
+                            - Extracted heavy logic to custom hook.<br>
+                            - Added useMemo to prevent re-renders.<br>
+                            <span class="text-gray-500">\`\`\`tsx<br>// Clean, DRY Code Output...<br>\`\`\`</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: DEV 2 -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent3 font-mono text-sm mb-4 tracking-widest uppercase">Part 3: Developer & Tech</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">Deep System Architecture</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Plan a full tech stack or database schema before writing a single line of code.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-upper mr-2">ULTRATHINK</span>
+                        <span class="mod-tag mod-upper">BLUEPRINT</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent">ULTRATHINK</span> <span class="text-accent">BLUEPRINT</span> Real-time chat app for healthcare (HIPAA compliant). Map tech stack & schema.
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            <span class="text-gray-500">&lt;thinking&gt;<br>Evaluating HIPAA constraints. Need end-to-end encryption. WebSockets vs SSE...<br>&lt;/thinking&gt;</span><br><br>
+                            [Delivers Step-by-Step Blueprint]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: ARTIFACTS -->
+    <div class="slide">
+        <div class="max-w-6xl mx-auto h-full flex flex-col justify-center">
+            <div class="reveal delay-1 text-accent2 font-mono text-sm mb-4 tracking-widest uppercase">Part 4: The Creator Studio</div>
+            <h2 class="reveal delay-2 text-5xl font-bold mb-12">Instant Interactive Tools</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="reveal delay-3 bg-surface p-6 rounded-xl border border-border">
+                        <h3 class="text-white font-bold mb-2">Goal</h3>
+                        <p class="text-muted text-sm">Generate a fully functional web app, UI component, or dashboard directly inside Claude.</p>
+                    </div>
+                    <div class="reveal delay-4">
+                        <h3 class="text-sm font-mono text-muted mb-3">Recommended Modifiers:</h3>
+                        <span class="mod-tag mod-upper mr-2">ARTIFACTS</span>
+                        <span class="mod-tag mod-upper">PROTOTYPE</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 reveal delay-5 terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="mb-4">
+                            <span class="text-accent3">User ></span> 
+                            <span class="text-accent">ARTIFACTS</span> <span class="text-accent">PROTOTYPE</span> Build an ROI calculator for solar panels. Modern UI with Tailwind CSS.
+                        </div>
+                        <div class="border-t border-border pt-4 mt-4 text-white">
+                            <span class="text-accent">Claude ></span> 
+                            [Claude renders a live, clickable, functioning calculator UI directly in the browser window instead of raw code]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: SYNERGIES -->
+    <div class="slide">
+        <div class="max-w-5xl mx-auto h-full flex flex-col justify-center">
+            <h2 class="reveal delay-1 text-5xl font-bold mb-8">Master Workflows (Synergies)</h2>
+            <p class="reveal delay-2 text-lg text-muted mb-10">Power users stack modifiers to create entirely new AI behaviors.</p>
+            
+            <div class="space-y-6">
+                <div class="reveal delay-3 bg-surface2 border border-border p-6 rounded-xl">
+                    <h3 class="text-accent3 font-mono text-sm mb-2">1. The "Executive Summarizer"</h3>
+                    <p class="font-mono text-sm text-white bg-bg p-3 rounded"><span class="text-accent2">/raw</span> <span class="text-accent2">/trim</span> <span class="text-accent">PARETO</span> [50-page PDF] -> Return only metrics impacting revenue.</p>
+                    <p class="text-muted text-xs mt-3">Strips markdown, cuts fluff, forces 80/20 focus.</p>
+                </div>
+                <div class="reveal delay-4 bg-surface2 border border-border p-6 rounded-xl">
+                    <h3 class="text-accent4 font-mono text-sm mb-2">2. The "Hostile Interviewer"</h3>
+                    <p class="font-mono text-sm text-white bg-bg p-3 rounded"><span class="text-accent">PERSONA</span> [YC Partner] <span class="text-accent2">/skeptic</span> <span class="text-accent">STEELMAN</span> -> Pitching my startup. Tear it apart.</p>
+                    <p class="text-muted text-xs mt-3">Locks harsh persona, argues opposite, builds strongest case against you.</p>
+                </div>
+                <div class="reveal delay-5 bg-surface2 border border-border p-6 rounded-xl">
+                    <h3 class="text-accent font-mono text-sm mb-2">3. The "Instant SaaS MVP"</h3>
+                    <p class="font-mono text-sm text-white bg-bg p-3 rounded"><span class="text-accent">ULTRATHINK</span> <span class="text-accent">BLUEPRINT</span> <span class="text-accent2">/buildme</span> -> A pomodoro timer that gamifies focus.</p>
+                    <p class="text-muted text-xs mt-3">Forces logic mapping, plans structure, generates final code.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 11: CONCLUSION -->
+    <div class="slide">
+        <div class="max-w-4xl mx-auto text-center h-full flex flex-col justify-center items-center">
+            <h2 class="reveal delay-1 text-5xl font-bold mb-8">Best Practices</h2>
+            <div class="reveal delay-2 grid grid-cols-1 md:grid-cols-2 gap-6 w-full text-left mb-12">
+                <div class="bg-surface p-6 rounded-xl border border-border">
+                    <h3 class="text-accent2 font-bold mb-4 flex items-center gap-2">⚠️ Avoid</h3>
+                    <ul class="text-muted text-sm space-y-3 font-mono">
+                        <li>• Over-stacking (Don't use 8 at once)</li>
+                        <li>• Contradictory tags (/raw + DASHBOARD)</li>
+                        <li>• Vague context (Modifiers don't replace good prompting)</li>
+                    </ul>
+                </div>
+                <div class="bg-surface p-6 rounded-xl border border-border">
+                    <h3 class="text-accent3 font-bold mb-4 flex items-center gap-2">✅ Do</h3>
+                    <ul class="text-muted text-sm space-y-3 font-mono">
+                        <li>• Place slash commands at the start</li>
+                        <li>• Place Verdicts (DECISION) at the end</li>
+                        <li>• Combine with &lt;thinking&gt; tags</li>
+                    </ul>
+                </div>
+            </div>
+            <h3 class="reveal delay-4 text-3xl font-bold">Start Prompting Like a Pro.</h3>
+            <p class="reveal delay-5 text-muted font-mono text-sm mt-4">The clarity of your prompt is the real magic.</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="hud">
+    <button class="hud-btn" id="prevBtn" aria-label="Previous Slide">← PREV</button>
+    <div class="hud-counter" id="counter">01 / 11</div>
+    <button class="hud-btn" id="nextBtn" aria-label="Next Slide">NEXT →</button>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress-bar');
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    // Custom Cursor Logic
+    const cursor = document.getElementById("cursor");
+    const ring = document.getElementById("cursor-ring");
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    
+    // Only enable custom cursor if not on a touch device
+    if (!('ontouchstart' in window) && navigator.maxTouchPoints === 0) {
+        document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+        function animCursor() {
+            cursor.style.left = mx + "px"; cursor.style.top = my + "px";
+            rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+            ring.style.left = rx + "px"; ring.style.top = ry + "px";
+            requestAnimationFrame(animCursor);
+        }
+        animCursor();
+
+        document.querySelectorAll("button").forEach(el => {
+            el.addEventListener("mouseenter", () => {
+                cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
+                cursor.style.background = "var(--accent3)";
+                ring.style.transform = "translate(-50%, -50%) scale(1.2)";
+            });
+            el.addEventListener("mouseleave", () => {
+                cursor.style.transform = "translate(-50%, -50%) scale(1)";
+                cursor.style.background = "#7c6dfa";
+                ring.style.transform = "translate(-50%, -50%) scale(1)";
+            });
+        });
+    } else {
+        cursor.style.display = 'none';
+        ring.style.display = 'none';
+        document.body.style.cursor = 'auto';
+        document.querySelectorAll("button").forEach(b => b.style.cursor = 'pointer');
+    }
+
+    function updatePresentation() {
+        // Update slides
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        // Update progress & counter
+        const progress = ((currentSlide + 1) / totalSlides) * 100;
+        progressBar.style.width = \`\${progress}%\`;
+        
+        const formatNum = n => (n + 1).toString().padStart(2, '0');
+        counter.textContent = \`\${formatNum(currentSlide)} / \${formatNum(totalSlides - 1)}\`;
+
+        // Button states
+        prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+        prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+        nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+        nextBtn.style.pointerEvents = currentSlide === totalSlides - 1 ? 'none' : 'auto';
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            updatePresentation();
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updatePresentation();
+        }
+    }
+
+    // Event Listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === ' ') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+        }
+    });
+
+    // Touch Support (Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, {passive: true});
+
+    function handleSwipe() {
+        const threshold = 50; // minimum distance to be considered a swipe
+        if (touchEndX < touchStartX - threshold) nextSlide();
+        if (touchEndX > touchStartX + threshold) prevSlide();
+    }
+
+    // Init
+    updatePresentation();
+<\/script>
+</body>
+</html>`;
+
+const howToUseBtn = document.getElementById('howToUseBtn');
+const howToUseBtnMobile = document.getElementById('howToUseBtnMobile');
+const playbookOverlay = document.getElementById('playbookOverlay');
+const closePlaybookBtn = document.getElementById('closePlaybookBtn');
+const playbookFrame = document.getElementById('playbookFrame');
+
+function openPlaybook(e) {
+  e.preventDefault();
+  playbookFrame.srcdoc = PLAYBOOK_HTML;
+  playbookOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden'; 
+}
+
+function closePlaybook() {
+  playbookOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+  setTimeout(() => { playbookFrame.srcdoc = ''; }, 300); 
+}
+
+howToUseBtn.addEventListener('click', openPlaybook);
+howToUseBtnMobile.addEventListener('click', openPlaybook);
+closePlaybookBtn.addEventListener('click', closePlaybook);
+
 </script>
 </body>
 </html>
